@@ -1,8 +1,10 @@
-#Build output
+# Build output
 *.d
 *.o
 *.srec
 *.elf
 *.map
 
+# Project output folders
 standalone/Debug/
+standalone/.settings/
