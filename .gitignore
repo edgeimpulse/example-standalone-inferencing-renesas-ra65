@@ -7,4 +7,5 @@
 
 # Project output folders
 standalone/Debug/
+standalone/Release/
 standalone/.settings/
