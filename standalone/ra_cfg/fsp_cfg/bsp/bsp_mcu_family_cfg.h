@@ -83,7 +83,7 @@
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 25) /* SCI6 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 26) /* SCI5 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 27) /* SCI4 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 28) /* SCI3 */ | \
+            (((1 > 0) ? 0U : 1U) << 28) /* SCI3 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 29) /* SCI2 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 30) /* SCI1 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 31) /* SCI0 */ | \
@@ -132,7 +132,7 @@
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 28) /* GPT3 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 29) /* GPT2 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 30) /* GPT1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 31) /* GPT0 */ | \
+            (((1 > 0) ? 0U : 1U) << 31) /* GPT0 */ | \
             0x3f3ff8) /* Unused */
 #endif
 #ifndef BSP_TZ_CFG_MSSAR

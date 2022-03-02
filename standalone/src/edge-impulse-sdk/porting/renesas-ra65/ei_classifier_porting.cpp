@@ -23,7 +23,7 @@
 #include "../ei_classifier_porting.h"
 #if EI_PORTING_RENESASRA65 == 1
 
-// #include <ti/drivers/UART.h>
+#include "common_utils.h"
 
 #include <stdarg.h>
 #include <stdlib.h>
@@ -32,6 +32,7 @@
 
 // extern "C" void Serial_Out(char *string, int length);
 // extern "C" uint64_t Timer_getMs(void);
+extern "C" fsp_err_t uart_print_user_msg(uint8_t *p_msg);
 
 __attribute__((weak)) EI_IMPULSE_ERROR ei_run_impulse_check_canceled() {
     return EI_IMPULSE_OK;
@@ -66,6 +67,8 @@ __attribute__((weak)) void ei_printf(const char *format, ...) {
     va_start(myargs, format);
     length = vsnprintf(buffer, 256, format, myargs);
     va_end(myargs);
+
+    uart_print_user_msg((uint8_t *)buffer);
 
     // Serial_Out(buffer, length);
 }

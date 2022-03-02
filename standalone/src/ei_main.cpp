@@ -7,8 +7,16 @@
 
 
 #include "ei_run_classifier.h"
+#include "common_utils.h"
+
 
 #include <stdio.h>
+
+extern "C" fsp_err_t uart_initialize(void);
+extern "C" fsp_err_t uart_ep_demo(void);
+extern "C" fsp_err_t gpt_start(void);
+extern "C" fsp_err_t uart_print_user_msg(uint8_t *p_msg);
+
 
 static const float features[] = {
     // copy raw features here (for example from the 'Live classification' page)
@@ -27,8 +35,16 @@ int raw_feature_get_data(size_t offset, size_t length, float *out_ptr)
 int ei_main(void)
 {
 
-
   ei_impulse_result_t result = {nullptr};
+
+  fsp_err_t err = uart_initialize();
+  err = gpt_start();
+
+//    while(1)
+//    {
+//        ei_printf("Print this messgae: %X %s %f\r\n", 100, "echt veel", 2.4353f);
+//        for (int i = 0; i < 0x100000; i++){};
+//    }
 
   while (true)
   {
@@ -43,6 +59,9 @@ int ei_main(void)
 
     while (1)
     {
+
+
+
       // the features are stored into flash, and we don't want to load everything into RAM
       signal_t features_signal;
       features_signal.total_length = sizeof(features) / sizeof(features[0]);
@@ -74,9 +93,9 @@ int ei_main(void)
 #endif
       }
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
-      printf("%.3f", result.anomaly);
+      ei_printf("%.3f", result.anomaly);
 #endif
-      printf("]\n");
+      ei_printf("]\n");
 
       ei_sleep(2000);
     }
