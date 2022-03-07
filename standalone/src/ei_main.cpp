@@ -8,6 +8,7 @@
 
 #include "ei_run_classifier.h"
 #include "common_utils.h"
+#include "ei_at_handlers.h"
 
 
 #include <stdio.h>
@@ -40,6 +41,13 @@ int ei_main(void)
   fsp_err_t err = uart_initialize();
   err = gpt_start();
 
+  if (err == FSP_SUCCESS) {
+	  (void)ei_at_init();
+  }
+  else{
+	  // not able to init uart
+  }
+
 //    while(1)
 //    {
 //        ei_printf("Print this messgae: %X %s %f\r\n", 100, "echt veel", 2.4353f);
@@ -48,7 +56,7 @@ int ei_main(void)
 
   while (true)
   {
-    ei_printf("Edge Impulse standalone inferencing (Raspberry Pi Pico)\n");
+    ei_printf("Edge Impulse standalone inferencing (Renesas EK RA65M5)\n");
 
     if (sizeof(features) / sizeof(float) != EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE)
     {
