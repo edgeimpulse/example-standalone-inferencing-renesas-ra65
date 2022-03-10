@@ -24,6 +24,14 @@
 #include "common_utils.h"
 #include "timer_pwm.h"
 #include "uart_ep.h"
+#include "edge-impulse-sdk/porting/ei_classifier_porting.h"
+
+#include <stdarg.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+
+static uint64_t ms_time = 0;
 
 /*******************************************************************************************************************//**
  * @addtogroup r_sci_uart_ep
@@ -116,7 +124,13 @@ void timer_gpt_deinit(void)
 void periodic_timer_msgq_cb(timer_callback_args_t *p_args)
 {
     FSP_PARAMETER_NOT_USED (p_args);
-    ei_printf("TIMER\r\n");
+
+    ms_time++;
+}
+
+uint64_t timer_get_ms(void)
+{
+    return ms_time;
 }
 
 /*******************************************************************************************************************//**

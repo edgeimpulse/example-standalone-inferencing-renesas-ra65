@@ -33,6 +33,8 @@
 // extern "C" void Serial_Out(char *string, int length);
 // extern "C" uint64_t Timer_getMs(void);
 extern "C" fsp_err_t uart_print_user_msg(uint8_t *p_msg);
+extern "C" uint64_t timer_get_ms(void);
+
 
 __attribute__((weak)) EI_IMPULSE_ERROR ei_run_impulse_check_canceled() {
     return EI_IMPULSE_OK;
@@ -43,20 +45,26 @@ __attribute__((weak)) EI_IMPULSE_ERROR ei_run_impulse_check_canceled() {
  */
 __attribute__((weak)) EI_IMPULSE_ERROR ei_sleep(int32_t time_ms) {
 
-    // usleep(time_ms * 1000);
+    uint64_t start_time = ei_read_timer_ms();
+
+    while(start_time + time_ms > ei_read_timer_ms()){};
 
     return EI_IMPULSE_OK;
 }
 
 uint64_t ei_read_timer_ms() {
 
-    return 0;//Timer_getMs();
+    // uint64_t ms_time = 0;
+    
+    // ms_time = timer_get_us() / 1000;
+    // return ms_time;
+    return timer_get_ms();
 }
 
 uint64_t ei_read_timer_us() {
 
     /* TI board hangs when trying to call callback function each micro second */
-    return 0;
+    return timer_get_ms() * 1000;
 }
 
 __attribute__((weak)) void ei_printf(const char *format, ...) {

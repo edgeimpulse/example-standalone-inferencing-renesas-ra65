@@ -37,5 +37,6 @@ fsp_err_t gpt_initialize(void);
 fsp_err_t gpt_start(void);
 fsp_err_t set_intensity(uint32_t raw_count, uint8_t pin);
 void timer_gpt_deinit(void);
+uint64_t timer_get_ms(void);
 
 #endif /* TIMER_PWM_H_ */

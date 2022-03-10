@@ -35,4 +35,4 @@ void DebugLog(const char* s) {
     ei_printf("%s", s);
 }
 
-#endif // EI_PORTING_SONY_SPRESENSE == 1
+#endif // EI_PORTING_RENESASRA65 == 1

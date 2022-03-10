@@ -138,8 +138,8 @@ const gpt_extended_cfg_t g_timer0_extend =
         };
 const timer_cfg_t g_timer0_cfg =
 { .mode = TIMER_MODE_PERIODIC,
-/* Actual period: 42.94967296 seconds. Actual duty: 50%. */.period_counts = (uint32_t) 0x100000000,
-  .duty_cycle_counts = 0x80000000, .source_div = (timer_source_div_t) 0, .channel = 0, .p_callback = NULL,
+/* Actual period: 0.001 seconds. Actual duty: 50%. */.period_counts = (uint32_t) 0x186a0,
+  .duty_cycle_counts = 0xc350, .source_div = (timer_source_div_t) 0, .channel = 0, .p_callback = periodic_timer_msgq_cb,
   /** If NULL then do not add & */
 #if defined(NULL)
     .p_context           = NULL,
@@ -147,7 +147,7 @@ const timer_cfg_t g_timer0_cfg =
   .p_context = &NULL,
 #endif
   .p_extend = &g_timer0_extend,
-  .cycle_end_ipl = (BSP_IRQ_DISABLED),
+  .cycle_end_ipl = (2),
 #if defined(VECTOR_NUMBER_GPT0_COUNTER_OVERFLOW)
     .cycle_end_irq       = VECTOR_NUMBER_GPT0_COUNTER_OVERFLOW,
 #else

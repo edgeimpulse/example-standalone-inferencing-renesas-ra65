@@ -27,8 +27,8 @@ extern const timer_instance_t g_timer0;
 extern gpt_instance_ctrl_t g_timer0_ctrl;
 extern const timer_cfg_t g_timer0_cfg;
 
-#ifndef NULL
-void NULL(timer_callback_args_t *p_args);
+#ifndef periodic_timer_msgq_cb
+void periodic_timer_msgq_cb(timer_callback_args_t *p_args);
 #endif
 void hal_entry(void);
 void g_hal_init(void);

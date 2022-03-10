@@ -15,7 +15,9 @@
 extern "C" fsp_err_t uart_initialize(void);
 extern "C" fsp_err_t uart_ep_demo(void);
 extern "C" fsp_err_t gpt_start(void);
+extern "C" fsp_err_t gpt_initialize(void);
 extern "C" fsp_err_t uart_print_user_msg(uint8_t *p_msg);
+
 
 
 static const float features[] = {
@@ -32,23 +34,24 @@ int raw_feature_get_data(size_t offset, size_t length, float *out_ptr)
   return 0;
 }
 
+
 int ei_main(void)
 {
 
   ei_impulse_result_t result = {nullptr};
 
   fsp_err_t err = uart_initialize();
-  err = gpt_start();
 
-//    while(1)
-//    {
-//        ei_printf("Print this messgae: %X %s %f\r\n", 100, "echt veel", 2.4353f);
-//        for (int i = 0; i < 0x100000; i++){};
-//    }
+
+    err = gpt_initialize();
+    ei_printf("gpt init: %X\r\n", err);
+    err = gpt_start();
+    ei_printf("gpt return :%X\r\n", err);
+
 
   while (true)
   {
-    ei_printf("Edge Impulse standalone inferencing (Raspberry Pi Pico)\n");
+    ei_printf("Edge Impulse standalone inferencing (Renesas RA6M5)\n");
 
     if (sizeof(features) / sizeof(float) != EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE)
     {
@@ -68,7 +71,7 @@ int ei_main(void)
       features_signal.get_data = &raw_feature_get_data;
 
       // invoke the impulse
-      EI_IMPULSE_ERROR res = run_classifier(&features_signal, &result, false);
+      EI_IMPULSE_ERROR res = run_classifier(&features_signal, &result, true);
 
       ei_printf("run_classifier returned: %d\n", res);
 
